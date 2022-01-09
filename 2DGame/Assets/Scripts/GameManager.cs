@@ -5,7 +5,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private Text textTime;
+    private Text getScore;
     private bool gameOver;
+    public float score = 0;
+    private Text finalTime;
+    private Text finalScore;
 
     [Header("結束畫面")]
     public GameObject final;
@@ -13,11 +17,20 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         textTime = GameObject.Find("時間").GetComponent<Text>();
+        getScore = GameObject.Find("分數").GetComponent<Text>();
+
     }
 
     private void Update()
     {
         UpdateTime();
+        UpdataScore();
+    }
+
+    private void UpdataScore()
+    {
+        if (gameOver) return;
+        getScore.text = "分數：" + score;
     }
 
     /// <summary>
@@ -26,7 +39,7 @@ public class GameManager : MonoBehaviour
     private void UpdateTime()
     {
         if (gameOver) return;
-        textTime.text = "時間：" + Time.timeSinceLevelLoad.ToString("F2");
+        textTime.text = "時間：" + Time.timeSinceLevelLoad.ToString("F0");
     }
 
     /// <summary>
@@ -36,6 +49,10 @@ public class GameManager : MonoBehaviour
     {
         gameOver = true;
         final.SetActive(true);
+        finalTime = GameObject.Find("結束時間").GetComponent<Text>();
+        finalScore = GameObject.Find("結束分數").GetComponent<Text>();
+        finalTime.text = "時 間：" + Time.timeSinceLevelLoad.ToString("F0");
+        finalScore.text = "分 數：" + score;
     }
 
     /// <summary>

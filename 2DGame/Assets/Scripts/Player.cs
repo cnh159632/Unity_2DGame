@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private GameManager gm;
 
 
+
     [Header("移動速度"), Range(0, 1000)]
     public float speed = 10;
 
@@ -81,6 +82,7 @@ public class Player : MonoBehaviour
             hp = Mathf.Clamp(hp, 0, hpMax);
             hpBar.fillAmount = hp / hpMax;
             Destroy(collision.gameObject);
+            gm.score += 100;
         }
     }
 }
